@@ -17,16 +17,33 @@ Instructions:
     phrase: All the world's a stage, and all the men and women merely players; They have their exits
     sub: and women
 6. Print the result.
-
-else:
-if pos == -1:
-return 0
-return -1
-if string.startswith(sub):
-return pos + 1
-pos = indexOf(string[1:], sub)
-else:
-elif len(sub) > len(string) :
-return -1
-def indexOf(string,sub) :
 '''
+
+def main():
+    phrase = input('Enter a phrase: ')
+    sub = input("Enter a substring: ")
+    
+    result = indexOf(phrase, sub)
+    print("Result: ", result)
+
+def indexOf(string, sub):
+    # Case 1: Found match at the start
+    if string.startswith(sub):
+        return 0
+    
+    # Case 2: String is too short to contain the substring (Not found)
+    elif len(sub) > len(string):
+        return -1
+    
+    else:
+        # Recursive Step: Try finding it in the rest of the string (string[1:])
+        pos = indexOf(string[1:], sub)
+        
+        # Bubbling up: Check result from the recursive call
+        if pos == -1:
+            return -1
+        else:
+            # If found later, add 1 to account for the character we skipped
+            return pos + 1
+
+main()
