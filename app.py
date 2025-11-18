@@ -1,6 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-
+from datetime import datetime #For dynamic date
+from greeting import get_greeting #Import from your module
 app = Flask(__name__)
+
+@app.route('/greeting/<name>') # URL: http://127.0.0.1:5000/greeting/YourName
+def greeting(name): 
+   message = get_greeting(name) 
+   current_date = datetime.now().strftime("%Y-%m-%d") 
+   return render_template('greeting.html', message=message, current_date=current_date)
 # Set a secret key for session management (REQUIRED for using sessions)
 app.secret_key = 'a_very_secret_key_for_calc_app' 
 
